@@ -39,20 +39,28 @@ export default async function Navbar() {
                         </div>
 
                         {user ? (
-                            <form action={async () => {
-                                "use server";
-                                const supabase = await createClient();
-                                await supabase.auth.signOut();
-                                revalidatePath("/", "layout");
-                                redirect("/");
-                            }}>
-                                <button
-                                    type="submit"
-                                    className="text-slate-300 hover:text-white transition-colors text-sm font-medium"
+                            <div className="flex items-center gap-6">
+                                <Link
+                                    href="/write"
+                                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
                                 >
-                                    Log Out
-                                </button>
-                            </form>
+                                    Write Post
+                                </Link>
+                                <form action={async () => {
+                                    "use server";
+                                    const supabase = await createClient();
+                                    await supabase.auth.signOut();
+                                    revalidatePath("/", "layout");
+                                    redirect("/");
+                                }}>
+                                    <button
+                                        type="submit"
+                                        className="text-slate-300 hover:text-white transition-colors text-sm font-medium"
+                                    >
+                                        Log Out
+                                    </button>
+                                </form>
+                            </div>
                         ) : (
                             <>
                                 <Link
